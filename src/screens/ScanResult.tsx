@@ -1,16 +1,31 @@
-export default function ScanResult() {
-  return (
-    <div className="p-4 space-y-4">
-      <h1 className="text-xl font-bold">🥤 Bisleri Water Bottle</h1>
+import React from 'react';
+import { View, Text, StyleSheet } from 'react-native';
 
-      <div className="bg-white rounded-xl p-4 shadow space-y-2">
-        <p className="font-semibold">Sustainability Score: 5/10</p>
-        <p>CO₂: 82g • Plastic: 25g PET</p>
-        <p>Recyclable: ✅ Yes</p>
-        <p className="text-green-600 font-medium">
-          Better alternative: Steel Bottle (80% less CO₂)
-        </p>
-      </div>
-    </div>
+const ScanResult = ({ result }) => {
+  return (
+    <View style={styles.container}>
+      <Text style={styles.title}>Scan Result</Text>
+      <Text style={styles.resultText}>{result}</Text>
+    </View>
   );
-}
+};
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#f5f5f5',
+  },
+  title: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginBottom: 20,
+  },
+  resultText: {
+    fontSize: 18,
+    color: '#333',
+  },
+});
+
+export default ScanResult;
