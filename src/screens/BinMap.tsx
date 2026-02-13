@@ -1,33 +1,45 @@
-import { useEffect, useRef } from "react";
-import mapboxgl from "mapbox-gl";
+import React, { useEffect, useState } from 'react';
+import { View, Text, StyleSheet } from 'react-native';
+import MapView, { Marker } from 'react-native-maps';
 
-mapboxgl.accessToken = "YOUR_MAPBOX_TOKEN";
+const BinMap = () => {
+    const [bins, setBins] = useState([]);
 
-export default function BinMap() {
-  const mapRef = useRef<HTMLDivElement>(null);
+    useEffect(() => {
+        // Fetch nearby recycling bins from an API or local data
+        fetchBins();
+    }, []);
 
-  useEffect(() => {
-    if (!mapRef.current) return;
+    const fetchBins = async () => {
+        // Placeholder for fetching bins data
+        const data = await getNearbyBins();  // Implement this function as needed
+        setBins(data);
+    };
 
-    const map = new mapboxgl.Map({
-      container: mapRef.current,
-      style: "mapbox://styles/mapbox/streets-v12",
-      center: [77.209, 28.6139], // Delhi
-      zoom: 13,
-    });
+    return (
+        <View style={styles.container}>
+            <MapView style={styles.map}>
+                {bins.map((bin, index) => (
+                    <Marker
+                        key={index}
+                        coordinate={{ latitude: bin.latitude, longitude: bin.longitude }}
+                        title={'Recycling Bin'}
+                        description={bin.description}
+                    />
+                ))}
+            </MapView>
+        </View>
+    );
+};
 
-    new mapboxgl.Marker({ color: "#10B981" })
-      .setLngLat([77.21, 28.614])
-      .setPopup(new mapboxgl.Popup().setText("🟢 Available Bin"))
-      .addTo(map);
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+    },
+    map: {
+        width: '100%',
+        height: '100%',
+    },
+});
 
-    return () => map.remove();
-  }, []);
-
-  return (
-    <div className="bg-white rounded-2xl shadow overflow-hidden">
-      <div className="p-4 font-semibold">🗺️ Bin Finder</div>
-      <div ref={mapRef} className="h-64 w-full" />
-    </div>
-  );
-}
+export default BinMap;
