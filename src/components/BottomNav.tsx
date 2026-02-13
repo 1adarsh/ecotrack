@@ -1,17 +1,27 @@
-import { NavLink } from "react-router-dom";
+import React from 'react';
+import { BottomNavigation, BottomNavigationAction } from '@mui/material';
+import HomeIcon from '@mui/icons-material/Home';
+import SearchIcon from '@mui/icons-material/Search';
+import FavoritesIcon from '@mui/icons-material/Favorite';
+import ProfileIcon from '@mui/icons-material/Person';
 
-export default function BottomNav() {
-  const linkClass = ({ isActive }: { isActive: boolean }) =>
-    `flex flex-col items-center text-xs ${
-      isActive ? "text-eco" : "text-gray-400"
-    }`;
+const BottomNav = () => {
+  const [value, setValue] = React.useState(0);
 
   return (
-    <nav className="fixed bottom-0 left-0 right-0 bg-white border-t flex justify-around py-2">
-      <NavLink to="/" className={linkClass}>🏠 Home</NavLink>
-      <NavLink to="/map" className={linkClass}>🗺️ Map</NavLink>
-      <NavLink to="/scan" className={linkClass}>📸 Scan</NavLink>
-      <NavLink to="/profile" className={linkClass}>👤 Profile</NavLink>
-    </nav>
+    <BottomNavigation
+      value={value}
+      onChange={(event, newValue) => {
+        setValue(newValue);
+      }}
+      style={{ position: 'fixed', bottom: 0, width: '100%' }}
+    >
+      <BottomNavigationAction label="Home" icon={<HomeIcon />} />
+      <BottomNavigationAction label="Search" icon={<SearchIcon />} />
+      <BottomNavigationAction label="Favorites" icon={<FavoritesIcon />} />
+      <BottomNavigationAction label="Profile" icon={<ProfileIcon />} />
+    </BottomNavigation>
   );
-}
+};
+
+export default BottomNav;
