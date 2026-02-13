@@ -1,42 +1,47 @@
-import ThemeToggle from "../components/ThemeToogle";
-export default function Dashboard() {
-  return (
-    <div className="bg-white rounded-2xl p-6 shadow">
-      <h1 className="text-2xl font-bold">👤 Hello, Priya</h1>
-      <p className="text-gray-500 mb-4">
-        Every small step counts
-      </p>
+import React from 'react';
+import { View, Text, Button, StyleSheet } from 'react-native';
 
-      <div className="bg-eco text-green-600 rounded-xl p-4 text-center">
-        <p className="text-sm">TODAY'S SCORE</p>
-        <p className="text-4xl font-bold">720</p>
-        <p className="text-sm">Better than 65% in Delhi</p>
-      </div>
+const Dashboard = () => {
+    return (
+        <View style={styles.container}>
+            <Text style={styles.header}>Eco Tracking Dashboard</Text>
+            <View style={styles.statsContainer}>
+                <Text style={styles.stat}>Total Emissions: XX tons</Text>
+                <Text style={styles.stat}>Trees Planted: YY</Text>
+                <Text style={styles.stat}>Water Saved: ZZ liters</Text>
+            </View>
+            <View style={styles.actionsContainer}>
+                <Button title="Track New Action" onPress={() => {}} />
+                <Button title="View History" onPress={() => {}} />
+                <Button title="Settings" onPress={() => {}} />
+            </View>
+        </View>
+    );
+};
 
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+        padding: 20,
+    },
+    header: {
+        fontSize: 24,
+        fontWeight: 'bold',
+    },
+    statsContainer: {
+        marginVertical: 20,
+    },
+    stat: {
+        fontSize: 18,
+        marginVertical: 5,
+    },
+    actionsContainer: {
+        width: '100%',
+        flexDirection: 'column',
+        alignItems: 'center',
+    },
+});
 
-    <div className="p-4 space-y-4">
-      
-      <div className="flex justify-between items-center">
-        <h1 className="text-xl font-bold">Hello, Priya</h1>
-        <ThemeToggle />
-      </div>
-
-    </div>  
-
-      <div className="grid grid-cols-3 gap-3 mt-4">
-        {["🗑️ Find Bins", "📊 Track CO₂", "🏆 Rewards"].map(item => (
-          <button
-            key={item}
-            className="bg-gray-100 rounded-xl p-3 text-sm font-medium hover:bg-leaf"
-          >
-            {item}
-          </button>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-
-
-
+export default Dashboard;
