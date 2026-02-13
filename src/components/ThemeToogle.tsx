@@ -1,14 +1,28 @@
-import { useTheme } from "../context/ThemeContext";
+import React, { useState, useEffect } from 'react';
 
-export default function ThemeToggle() {
-  const { theme, toggleTheme } = useTheme();
+const ThemeToggle = () => {
+    const [theme, setTheme] = useState('light');
 
-  return (
-    <button
-      onClick={toggleTheme}
-      className="bg-gray-200 dark:bg-gray-800 rounded-full px-4 py-2 text-sm"
-    >
-      {theme === "light" ? "🌙 Dark" : "☀️ Light"}
-    </button>
-  );
-}
+    useEffect(() => {
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme) {
+            setTheme(savedTheme);
+            document.documentElement.setAttribute('data-theme', savedTheme);
+        }
+    }, []);
+
+    const toggleTheme = () => {
+        const newTheme = theme === 'light' ? 'dark' : 'light';
+        setTheme(newTheme);
+        document.documentElement.setAttribute('data-theme', newTheme);
+        localStorage.setItem('theme', newTheme);
+    };
+
+    return (
+        <button onClick={toggleTheme}>
+            Switch to {theme === 'light' ? 'dark' : 'light'} theme
+        </button>
+    );
+};
+
+export default ThemeToggle;
